@@ -11,7 +11,7 @@ export const FabDelete = () => {
     <button
       onClick={handleClickDelete}
       style={{
-        display: hasEventSelected && !!isDateModalOpen ? "block" : "none",
+        display: hasEventSelected ? "" : "none",
       }}
       className="btn btn-danger fab-danger"
     >
