@@ -5,6 +5,7 @@ import {
   onClearErrorMessage,
   onLogin,
   onLogout,
+  onLogoutCalendar,
 } from "../store";
 
 export const useAuthStore = () => {
@@ -50,7 +51,6 @@ export const useAuthStore = () => {
 
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token-calendar");
-    console.log(token);
     if (!token) return dispatch(onLogout());
     try {
       const { data } = await calendarApi.get("auth/renew");
@@ -65,6 +65,7 @@ export const useAuthStore = () => {
 
   const startLogout = () => {
     localStorage.clear();
+    dispatch(onLogoutCalendar());
     dispatch(onLogout());
   };
 
