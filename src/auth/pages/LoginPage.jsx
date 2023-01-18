@@ -1,4 +1,6 @@
-import { useForm } from "../../hooks/useForm";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { useForm, useAuthStore } from "../../hooks/";
 import "./loginPage.css";
 
 const loginFormFields = {
@@ -14,6 +16,8 @@ const registerFormFields = {
 };
 
 export const LoginPage = () => {
+  const { startLogin, startRegister, errorMessage } = useAuthStore();
+
   const {
     registerName,
     registerEmail,
@@ -28,19 +32,34 @@ export const LoginPage = () => {
     onInputChange: onLoginInputChange,
   } = useForm(registerFormFields);
 
-  const loginSubmit = (e) => {
+  const loginSubmit = async (e) => {
     e.preventDefault();
+    await startLogin({ loginEmail, loginPassword });
   };
 
-  const registerSubmit = (e) => {
+  const registerSubmit = async (e) => {
     e.preventDefault();
+    if (registerPassword !== registerPassword2) {
+      Swal.fire("Error", "Password was not confirmed", "error");
+    }
+    await startRegister({
+      name: registerName,
+      registerEmail,
+      registerPassword,
+    });
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      Swal.fire("Error!", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <div className="container login-container">
       <div className="row">
         <div className="col-md-6 login-form-1">
-          <h3>Ingreso</h3>
+          <h3>Sign in</h3>
           <form onSubmit={loginSubmit}>
             <div className="form-group mb-2">
               <input
@@ -68,7 +87,7 @@ export const LoginPage = () => {
           </form>
         </div>
         <div className="col-md-6 login-form-2">
-          <h3>Registro</h3>
+          <h3>Register</h3>
           <form onSubmit={registerSubmit}>
             <div className="form-group mb-2">
               <input
@@ -113,7 +132,7 @@ export const LoginPage = () => {
             </div>
 
             <div className="form-group mb-2">
-              <input type="submit" className="btnSubmit" value="Crear cuenta" />
+              <input type="submit" className="btnSubmit" value="Sign in" />
             </div>
           </form>
         </div>
