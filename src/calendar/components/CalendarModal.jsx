@@ -85,7 +85,7 @@ export const CalendarModal = () => {
       closeTimeoutMS={200}
       style={customStyles}
     >
-      <h1> Nuevo evento </h1>
+      <h1> New event </h1>
       <hr />
       <form onSubmit={onSubmit} className="container">
         <div className="form-group mb-2">
@@ -100,7 +100,7 @@ export const CalendarModal = () => {
         </div>
 
         <div className="form-group mb-2">
-          <label>Fecha y hora fin</label>
+          <label>Start and end date </label>
           <DatePicker
             onChange={(event) => onDateChange(event, "end")}
             minDate={formValues.start}
@@ -113,7 +113,7 @@ export const CalendarModal = () => {
 
         <hr />
         <div className="form-group mb-2">
-          <label>Titulo y notas</label>
+          <label>Title and description</label>
           <input
             type="text"
             className={`form-control ${titleValidClass}`}
@@ -124,7 +124,7 @@ export const CalendarModal = () => {
             onChange={onInputChange}
           />
           <small id="emailHelp" className="form-text text-muted">
-            Una descripción corta
+            short description
           </small>
         </div>
 
@@ -139,13 +139,13 @@ export const CalendarModal = () => {
             onChange={onInputChange}
           ></textarea>
           <small id="emailHelp" className="form-text text-muted">
-            Información adicional
+            extra info
           </small>
         </div>
 
         <button type="submit" className="btn btn-outline-primary btn-block">
           <i className="far fa-save"></i>
-          <span> Guardar</span>
+          <span>Save</span>
         </button>
       </form>
     </Modal>
